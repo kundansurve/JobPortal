@@ -1,7 +1,5 @@
-import React from "react";
 import {
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Button,
@@ -11,7 +9,9 @@ import {
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { WrapText } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJobs } from "../Actions";
+import React, { useState, useEffect } from "react";
 
 const JobPostCard = ({
   companyLogo,
@@ -21,10 +21,25 @@ const JobPostCard = ({
   minSalary,
   maxSalary,
   salaryCurrencyCode,
+  fetchNext,
   jobDescription,
   minExp,
+  offset,
   maxExp
 }) => {
+  const dispatch = useDispatch();
+  
+  const [loading, setLoading] = useState(false);
+  const filters = useSelector((state)=>state.filters);
+  const hasMore = useSelector((state)=>state.hasMore);
+  let visibility = true;
+  
+
+  useEffect(() => {
+    if(hasMore && fetchNext) {
+      dispatch(fetchJobs(offset));
+    }
+  }, );
   return (
     <Card className="job-card">
 

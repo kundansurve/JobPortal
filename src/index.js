@@ -18,6 +18,7 @@ root.render(
   <Provider store={store}>
   <div>
     <Filters />
+    <hr/>
     <SearchJobs />
   </div>
 </Provider>

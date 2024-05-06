@@ -1,82 +1,78 @@
-// Filters.js
-import React from 'react';
-import { Grid, TextField, Select, MenuItem } from '@mui/material';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Grid, TextField, Select, MenuItem, InputLabel } from "@mui/material";
+import { setFilters } from "../Actions";
 
 const Filters = () => {
-  const [minExperience, setMinExperience] = React.useState('');
-  const [company, setCompany] = React.useState('');
-  const [location, setLocation] = React.useState('');
-  const [remote, setRemote] = React.useState('');
-  const [techStack, setTechStack] = React.useState('');
-  const [role, setRole] = React.useState('');
-  const [minBasePay, setMinBasePay] = React.useState('');
-
-  const handleFilterChange = (filter, value) => {
-    // dispatch setFilters action here
-  };
+  const dispatch = useDispatch();
+  const minExperience = useSelector((state) => state.filters.minExperience);
+  const companyName = useSelector((state) => state.filters.companyName);
+  const location = useSelector((state) => state.filters.location);
+  const remote = useSelector((state) => state.filters.remote);
+  //const techStack =useSelector((state)=>state.filters.minExperience);
+  const role = useSelector((state) => state.filters.role);
+  const minBasePay = useSelector((state) => state.filters.minBasePay);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <TextField
-          label="MinExperience"
-          value={minExperience}
-          onChange={(e) => setMinExperience(e.target.value)}
-          onBlur={() => handleFilterChange('minExperience', minExperience)}
-        />
+    <>
+      <Grid container spacing={2} marginY={1} paddingY={1}>
+        <Grid item>
+          <TextField
+            label="MinExperience"
+            value={minExperience}
+            type="number"
+            InputProps={{ inputProps: { min: 0, max: 100 } }}
+            onChange={(e) => {dispatch(setFilters('minExperience',e.target.value))}}
+            //onBlur={() => handleFilterChange("minExperience", minExperience)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Company"
+            value={companyName}
+            onChange={(e) => {dispatch(setFilters('companyName',e.target.value))}}
+            //onBlur={() => handleFilterChange("company", companyName)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Location"
+            value={location}
+            onChange={(e) => {dispatch(setFilters('location',e.target.value))}}
+           // onBlur={() => handleFilterChange("location", location)}
+          />
+        </Grid>
+        <Grid item>
+          <Select
+            id="work-type-select"
+            value={remote}
+            label="Type"
+            onChange={(e) => {dispatch(setFilters('remote',e.target.value))}}
+          >
+            <MenuItem value={""}>All</MenuItem>
+            <MenuItem value={"Remote"}>Remote</MenuItem>
+            <MenuItem value={"On-Site"}>On- Site</MenuItem>
+          </Select>
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Role"
+            value={role}
+            onChange={(e) => {dispatch(setFilters('role',e.target.value))}}
+            //onBlur={() => handleFilterChange("role", role)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Min Base Pay"
+            value={minBasePay}
+            type="number"
+            onChange={(e) => {dispatch(setFilters('minBasePay',e.target.value))}}
+            //onBlur={() => handleFilterChange("minBasePay", minBasePay)}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <TextField
-          label="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          onBlur={() => handleFilterChange('company', company)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <TextField
-          label="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          onBlur={() => handleFilterChange('location', location)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Select
-          value={remote}
-          onChange={(e) => setRemote(e.target.value)}
-          onBlur={() => handleFilterChange('remote', remote)}
-        >
-          <MenuItem value="">All</MenuItem>
-          <MenuItem value="remote">Remote</MenuItem>
-          <MenuItem value="onsite">On-site</MenuItem>
-        </Select>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <TextField
-          label="Tech Stack"
-          value={techStack}
-          onChange={(e) => setTechStack(e.target.value)}
-          onBlur={() => handleFilterChange('techStack', techStack)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <TextField
-          label="Role"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          onBlur={() => handleFilterChange('role', role)}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <TextField
-          label="Min Base Pay"
-          value={minBasePay}
-          onChange={(e) => setMinBasePay(e.target.value)}
-          onBlur={() => handleFilterChange('minBasePay', minBasePay)}
-        />
-      </Grid>
-    </Grid>
+    </>
   );
 };
 
