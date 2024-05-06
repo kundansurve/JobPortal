@@ -23,12 +23,14 @@ const Filters = () => {
     dispatch(setFilters("remote", remote));
   };
   const resetFilters = () => {
-    dispatch(setFilters("minExperience", null));
-    dispatch(setFilters("minBasePay", null));
-    dispatch(setFilters("role", null));
-    dispatch(setFilters("companyName", null));
-    dispatch(setFilters("location", null));
-    dispatch(setFilters("remote", null));
+    
+    setMinExperience(null);
+    setCompanyName(null);
+    setLocation(null);
+    setRemote(null);
+    setRole(null);
+    setMinBasePay(null);
+    handleFilters();
   };
 
   return (
@@ -113,6 +115,7 @@ const Filters = () => {
             Filter
           </Button>
         </Grid>
+        <br/>
         <Grid item sx={{ alignItems: "center", justifyContent: "center" }}>
           <Button
             fullWidth
