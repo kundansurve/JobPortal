@@ -1,6 +1,5 @@
-
 export const fetchJobs =
-  ( offset = 0) =>
+  (offset = 0) =>
   (dispatch) => {
     try {
       const myHeaders = new Headers();
@@ -23,14 +22,17 @@ export const fetchJobs =
       )
         .then((response) => response.json())
         .then((result) => {
-          if(offset===0){
-            dispatch({ type: "INITIAL_FETCH_JOBS_SUCCESS", jobs: result.jdList });
+          if (offset === 0) {
+            dispatch({
+              type: "INITIAL_FETCH_JOBS_SUCCESS",
+              jobs: result.jdList,
+            });
             dispatch({ type: "SET_HAS_MORE", totalCount: result.totalCount });
-          }else {
+          } else {
             dispatch({ type: "FETCH_JOBS_SUCCESS", jobs: result.jdList });
             dispatch({ type: "SET_HAS_MORE", totalCount: result.totalCount });
           }
-          
+
           return result.jdListener;
         })
         .catch((error) => console.error(error));
@@ -39,23 +41,21 @@ export const fetchJobs =
     }
   };
 
-export const setFilters = (name, value) => 
-  (dispatch)=>{
- 
-    switch (name) {
-      case 'minExperience':
-        return dispatch({ type: "SET_FILTER_MIN_EXPERIENCE", value:value });
-        case "companyName":
-          return dispatch({ type: "SET_FILTER_COMPANY_NAME", value:value });
-        case "location":
-          return dispatch({ type: "SET_FILTER_LOCATION", value:value });
-        case "remote":
-          return dispatch({ type: "SET_FILTER_REMOTE", value:value });
-        case "role":
-          return dispatch({ type: "SET_FILTER_ROLE", value:value });
-        case "minBasePay":
-          return dispatch({ type: "SET_FILTER_MIN_BASE_PAY", value:value });
-        default:
-          return {}
-    }
-  };
+export const setFilters = (name, value) => (dispatch) => {
+  switch (name) {
+    case "minExperience":
+      return dispatch({ type: "SET_FILTER_MIN_EXPERIENCE", value: value });
+    case "companyName":
+      return dispatch({ type: "SET_FILTER_COMPANY_NAME", value: value });
+    case "location":
+      return dispatch({ type: "SET_FILTER_LOCATION", value: value });
+    case "remote":
+      return dispatch({ type: "SET_FILTER_REMOTE", value: value });
+    case "role":
+      return dispatch({ type: "SET_FILTER_ROLE", value: value });
+    case "minBasePay":
+      return dispatch({ type: "SET_FILTER_MIN_BASE_PAY", value: value });
+    default:
+      return {};
+  }
+};

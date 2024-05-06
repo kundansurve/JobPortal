@@ -1,17 +1,35 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Grid, TextField, Select, MenuItem, InputLabel } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Grid, TextField, Select, MenuItem, Button } from "@mui/material";
 import { setFilters } from "../Actions";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const minExperience = useSelector((state) => state.filters.minExperience);
-  const companyName = useSelector((state) => state.filters.companyName);
-  const location = useSelector((state) => state.filters.location);
-  const remote = useSelector((state) => state.filters.remote);
-  //const techStack =useSelector((state)=>state.filters.minExperience);
-  const role = useSelector((state) => state.filters.role);
-  const minBasePay = useSelector((state) => state.filters.minBasePay);
+  const [minExperience, setMinExperience] = React.useState(null);
+  const [companyName, setCompanyName] = React.useState(null);
+  const [location, setLocation] = React.useState(null);
+  const [remote, setRemote] = React.useState(null);
+  // const [techStack, setTechStack] = React.useState('');
+  const [role, setRole] = React.useState(null);
+  const [minBasePay, setMinBasePay] = React.useState(null);
+
+  const handleFilters = () => {
+    dispatch(setFilters("minExperience", minExperience));
+    dispatch(setFilters("minBasePay", minBasePay));
+    dispatch(setFilters("role", role));
+    dispatch(setFilters("companyName", companyName));
+    dispatch(setFilters("location", location));
+    dispatch(setFilters("remote", remote));
+  };
+  const resetFilters = () => {
+    dispatch(setFilters("minExperience", null));
+    dispatch(setFilters("minBasePay", null));
+    dispatch(setFilters("role", null));
+    dispatch(setFilters("companyName", null));
+    dispatch(setFilters("location", null));
+    dispatch(setFilters("remote", null));
+  };
 
   return (
     <>
@@ -22,7 +40,9 @@ const Filters = () => {
             value={minExperience}
             type="number"
             InputProps={{ inputProps: { min: 0, max: 100 } }}
-            onChange={(e) => {dispatch(setFilters('minExperience',e.target.value))}}
+            onChange={(e) => {
+              setMinExperience(e.target.value);
+            }}
             //onBlur={() => handleFilterChange("minExperience", minExperience)}
           />
         </Grid>
@@ -30,7 +50,9 @@ const Filters = () => {
           <TextField
             label="Company"
             value={companyName}
-            onChange={(e) => {dispatch(setFilters('companyName',e.target.value))}}
+            onChange={(e) => {
+              setCompanyName(e.target.value);
+            }}
             //onBlur={() => handleFilterChange("company", companyName)}
           />
         </Grid>
@@ -38,8 +60,10 @@ const Filters = () => {
           <TextField
             label="Location"
             value={location}
-            onChange={(e) => {dispatch(setFilters('location',e.target.value))}}
-           // onBlur={() => handleFilterChange("location", location)}
+            onChange={(e) => {
+              setLocation(e.target.value);
+            }}
+            // onBlur={() => handleFilterChange("location", location)}
           />
         </Grid>
         <Grid item>
@@ -47,7 +71,9 @@ const Filters = () => {
             id="work-type-select"
             value={remote}
             label="Type"
-            onChange={(e) => {dispatch(setFilters('remote',e.target.value))}}
+            onChange={(e) => {
+              setRemote(remote);
+            }}
           >
             <MenuItem value={""}>All</MenuItem>
             <MenuItem value={"Remote"}>Remote</MenuItem>
@@ -58,7 +84,9 @@ const Filters = () => {
           <TextField
             label="Role"
             value={role}
-            onChange={(e) => {dispatch(setFilters('role',e.target.value))}}
+            onChange={(e) => {
+              setRole(e.target.value);
+            }}
             //onBlur={() => handleFilterChange("role", role)}
           />
         </Grid>
@@ -67,9 +95,34 @@ const Filters = () => {
             label="Min Base Pay"
             value={minBasePay}
             type="number"
-            onChange={(e) => {dispatch(setFilters('minBasePay',e.target.value))}}
+            onChange={(e) => {
+              setMinBasePay(e.target.value);
+            }}
             //onBlur={() => handleFilterChange("minBasePay", minBasePay)}
           />
+        </Grid>
+        <Grid item sx={{ alignItems: "center", justifyContent: "center" }}>
+          <Button
+            fullWidth
+            fullHeight
+            variant="contained"
+            style={{ backgroundColor: "primary" }}
+            startIcon={<FilterAltIcon />}
+            onClick={handleFilters}
+          >
+            Filter
+          </Button>
+        </Grid>
+        <Grid item sx={{ alignItems: "center", justifyContent: "center" }}>
+          <Button
+            fullWidth
+            fullHeight
+            variant="contained"
+            style={{ backgroundColor: "primary" }}
+            onClick={resetFilters}
+          >
+            Reset Filter
+          </Button>
         </Grid>
       </Grid>
     </>
