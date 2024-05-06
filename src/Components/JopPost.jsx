@@ -76,6 +76,8 @@ const JobPostCard = ({
       SalaryValidation
     ) {
       setVisibility(false);
+    }else{
+      setVisibility(true);
     }
   }, [filters]);
 
@@ -90,18 +92,20 @@ const JobPostCard = ({
       key={id}
       xs={12}
       sm={6}
-      md={4}
+      md={6}
       lg={3}
-      sx={{ display: visibility ? "" : "none", maxWidth: 300 }}
+      sx={{ display: visibility ? "" : "none" }}
     >
       <Card className="job-card">
         <CardContent>
           <Box
             margin={1}
             padding={1}
-            display={"flex"}
-            justifyContent={"flex-start"}
-            alignItems={"flex-start"}
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
           >
             <Box
               item
@@ -128,18 +132,18 @@ const JobPostCard = ({
               }}
             >
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h6" component="div">
                   {companyName}
                 </Typography>
-                <Typography variant="h4" component="div">
-                  {roleName}
+                <Typography variant="h6" component="div">
+                  {roleName.toUpperCase()}
                 </Typography>
                 <Grid container alignItems="center">
                   <Grid item>
                     <LocationOnIcon />
                   </Grid>
                   <Grid item>
-                    <Typography variant="body1">{jobLocation}</Typography>
+                    <Typography variant="body1">{jobLocation.toUpperCase()}</Typography>
                   </Grid>
                 </Grid>
               </CardContent>

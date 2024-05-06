@@ -18,7 +18,7 @@ const SearchJobs = () => {
   }, []);
 
   return (
-    <Grid container spacing={6}>
+    <Grid container  sx={{ margin:'auto'}} spacing={1}>
       {jobs.map((job, index) => (
         <JobPostCard
           id={job.id}
